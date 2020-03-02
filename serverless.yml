@@ -1,11 +1,14 @@
 service: 
-  name: porfolio-reporter # Put name of service here!
+  name: # Put name of service here!
+  # awsKmsKeyArn: Add for kms encryption for lambdas with sensitive variables
+
 
 custom:
-  stages: 
-    - dev
-    - prod 
+  stages: # add for lambdas with different environments
+    # - dev
+    # - prod 
   report-schedule: cron(30 9-16/7 * * 2-6 *)
+  # kms: Insert kms variable here for awsKmsKeyArn
 
 provider:
   name: aws
@@ -21,7 +24,7 @@ functions:
     handler: handler.report_stocks
     timeout: 900
     events:
-      - schedule: ${self:custom.report-schedule.${self:provider.stage}}
+      - schedule: ${self:custom.report-schedule}
     environment:
       
 plugins:
