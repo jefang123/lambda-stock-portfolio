@@ -1,0 +1,29 @@
+service: 
+  name: porfolio-reporter # Put name of service here!
+
+custom:
+  stages: 
+    - dev
+    - prod 
+  report-schedule: cron(00 9-5/8 * * ? *)
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  runtime: python3.6
+  region: ${opt:region, 'us-east-1'}
+  tracing: true,
+  # deploymentBucket:
+  #   name: # bucket for general sls deployments, remove if unneeded
+
+functions:
+  report_stocks:
+    handler: handler.report_stocks
+    timeout: 900
+    events:
+      - schedule: ${self:custom.report-schedule.${self:provider.stage}}
+    environment:
+      
+plugins:
+  - serverless-python-requirements
+  - serverless-prune-plugin
