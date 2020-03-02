@@ -5,7 +5,7 @@ custom:
   stages: 
     - dev
     - prod 
-  report-schedule: cron(00 9-5/8 * * ? *)
+  report-schedule: cron(30 9-16/7 * * 2-6 *)
 
 provider:
   name: aws
