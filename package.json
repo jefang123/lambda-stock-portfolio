@@ -1,0 +1,20 @@
+{
+  "name": "lambda-stock-portfolio",
+  "version": "1.0.0",
+  "description": "Simple lambda that reports a given portfolio of stocks",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefang123/lambda-stock-portfolio.git"
+  },
+  "author": "Jeffrey Fang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefang123/lambda-stock-portfolio/issues"
+  },
+  "homepage": "https://github.com/jefang123/lambda-stock-portfolio#readme",
+  "dependencies": {
+    "serverless": "^1.65.0",
+    "serverless-prune-plugin": "^1.3.2",
+    "serverless-python-requirements": "^4.3.0"
+  }
+}
