@@ -17,7 +17,7 @@ provider:
   region: ${opt:region, 'us-east-1'}
   tracing: true,
   # deploymentBucket:
-  #   name: # bucket for general sls deployments, remove if unneeded
+  #   name: specified s3 bucket for general sls deployments
 
 functions:
   report_stocks:

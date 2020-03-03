@@ -16,7 +16,8 @@ def login_email():
     return conn
 
 def report_stocks():
-  portfolio = environ.get("PORTFOLIO", "")
+  portfolio = environ.get("PORTFOLIO")
+  token = environ.get("EOD_TOKEN")
   if portfolio:
     stocks = portfolio.split(" ")
     client = login_email()
