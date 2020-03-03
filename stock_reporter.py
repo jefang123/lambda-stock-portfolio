@@ -1,30 +1,36 @@
 import requests
+from mail_sender import send
 
 def stock_api(portfolio, api_token):
   base_url = "https://eodhistoricaldata.com/api/real-time/"
   if len(portfolio):
-    base_url += f"${portfolio[0]}?api_token={api_token}fmt=json&s="
-    base_url += ",".join(portfolio[1:])
+    base_url += f"${portfolio[0]}?api_token={api_token}fmt=json"
+    if len(portfolio) > 1:
+      base_url += "&s=" + ",".join(portfolio[1:])
   else:
     print("No stocks in portfolio, aborting.")
     return None
   data = requests.get(base_url)
   if data.status_code = 200:
-    return data.json()
+    if len(portfolio) == 1:
+      return [data.json()]
+    else:
+      return data.json()
   else:
     print("Something went wrong with the api call. Check token rate limits")
     return None
     
-def send_email(client, prices, receiver):
-  current_prices = {}
+def send_email(prices, receiver):
+  subject = "Portfolio prices for today"
+  message = "Hello, the prices for your portfolio are: \n"
   for stock in prices:
-    current_prices[stock["code"]] = stock["open"]
-  # client.send_email(receiver)
+    message += f"{stock['code']}: {stock['open']} \n"
+  send(sender, receiver, subject, message, password)
 
-def main(portfolio, client, receiver, token):
+def main(portfolio, receiver, token):
   if receiver:
     prices = stock_api(portfolio, token)
-    send_email(client, prices, receiver)
+    send_email(prices, receiver)
   else:
     print("No email given. Please update with an email address to receive emails.")
 
