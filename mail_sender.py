@@ -17,7 +17,7 @@ def send(sender, to_addr, subject, message, password, service="GMAIL"):
   message = header + message
 
   smtp_server = SERVERS.get(service, "smtp.gmail.com")
-  if port == 465:
+  if PORT == 465:
     context = ssl.create_default_context()
     with smtplib.STMP_SSL(stmp_server, port, context=context) as server:
       try:
@@ -26,7 +26,7 @@ def send(sender, to_addr, subject, message, password, service="GMAIL"):
       except smtplib.STMPAuthenticationError as e:
         print("Incorrect Credentials")
 
-  elif port == 587:
+  elif PORT == 587:
     try:
       server = smtplib.SMTP(smtpserver)
       server.starttls()
