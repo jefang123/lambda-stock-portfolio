@@ -24,7 +24,8 @@ def send_email(prices, receiver):
   subject = "Portfolio prices for today"
   message = "Hello, the prices for your portfolio are: \n"
   for stock in prices:
-    message += f"{stock['code']}: {stock['open']} \n"
+    price = stock["stock"] + stock["change"]
+    message += f"{stock['code']}: { price } \n"
   send(sender, receiver, subject, message, password)
 
 def main(portfolio, receiver, token):
