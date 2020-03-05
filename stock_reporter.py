@@ -20,18 +20,18 @@ def stock_api(portfolio, api_token):
     print("Something went wrong with the api call. Check token rate limits")
     return None
     
-def send_email(prices, receiver):
+def send_email(prices, credentials):
   subject = "Portfolio prices for today"
   message = "Hello, the prices for your portfolio are: \n"
   for stock in prices:
     price = stock["stock"] + stock["change"]
     message += f"{stock['code']}: { price } \n"
-  send(sender, receiver, subject, message, password)
+  send(creds.get("SENDER"), creds.get("RECEIVER"), subject, message, creds.get("CRED"))
 
-def main(portfolio, receiver, token):
+def main(portfolio, creds):
   if receiver:
-    prices = stock_api(portfolio, token)
-    send_email(prices, receiver)
+    prices = stock_api(creds.get("PORTFOLIO"), creds.get("TOKEN"))
+    send_email(prices, creds)
   else:
     print("No email given. Please update with an email address to receive emails.")
 
