@@ -7,7 +7,7 @@ custom:
   stages: # add for lambdas with different environments
     # - dev
     # - prod 
-  report-schedule: cron(30 9-16/7 * * 2-6 *)
+  report-schedule: cron(30 14-21/7 * * 2-6 *)
   # kms: Insert kms variable here for awsKmsKeyArn
 
 provider:

@@ -11,9 +11,9 @@ PORT = 465
 
 
 def send(sender, to_addr, subject, message, password, service="GMAIL"):
-  header  = 'From: %s\n' % sender
-  header += 'To: %s\n' % ','.join(to_addr_list)
-  header += 'Subject: %s\n\n' % subject
+  header  = f'From: {sender}\n' 
+  header += f'To: {to_addr}\n' 
+  header += f'Subject: {subject}\n\n' 
   message = header + message
 
   smtp_server = SERVERS.get(service, "smtp.gmail.com")

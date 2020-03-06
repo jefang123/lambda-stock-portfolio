@@ -34,8 +34,3 @@ def main(portfolio, creds):
     send_email(prices, creds)
   else:
     print("No email given. Please update with an email address to receive emails.")
-
-# free tier limit : 20 calls per/day
-# = 10 stocks per day
-# this can be changed via membership changes or api changes 
-  # https://eodhistoricaldata.com/api/real-time/AAPL.US?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX&fmt=json&s=VTI,EUR.FOREX
