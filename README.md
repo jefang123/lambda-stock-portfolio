@@ -44,7 +44,17 @@ custom:
 
 The lambda uses the [EOD Historical Data](https://eodhistoricaldata.com/knowledgebase/live-realtime-stocks-api/) for real time stock prices.
 A free account is rate limited to 20 calls a day.
-By default the lambda can keep track of 10 stocks on a free account token.
+By default the lambda can keep track of 10 stocks on a free account token.  
+Difference API endpoints can be configured:
+```
+def configure_url(portfolio, api_token):
+  base_url = "https://eodhistoricaldata.com/api/real-time/"
+  if len(portfolio):
+    base_url += f"${portfolio[0]}?api_token={api_token}fmt=json"
+    if len(portfolio) > 1:
+      base_url += "&s=" + ",".join(portfolio[1:])
+  return base_url  
+```
 
 After configuring the `serverless config` and the `.env` file, deploy the lambda:
 ```
