@@ -1,0 +1,38 @@
+service: 
+  name: stock-reporter # Put name of service here!
+  # awsKmsKeyArn: Add for kms encryption for lambdas with sensitive variables
+
+
+custom:
+  stages: # add for lambdas with different environments
+    # - dev
+    # - prod 
+  report-schedule: cron(30 14-21/7 * * 2-6 *)
+  # kms: Insert kms variable here for awsKmsKeyArn
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  runtime: python3.6
+  region: ${opt:region, 'us-east-1'}
+  tracing: true,
+  # deploymentBucket:
+  #   name: specified s3 bucket for general sls deployments
+
+functions:
+  report_stocks:
+    handler: handler.report_stocks
+    timeout: 900
+    events:
+      - schedule: ${self:custom.report-schedule}
+    environment:
+      - PORTFOLIO: ${env:PORTFOLIO}
+      - SENDER: ${env:SENDER}
+      - CRED: ${env:CRED}
+      - RECEIVER: ${env:RECEIVER}
+      - EOD_TOKEN: ${env:EOD_TOKEN}
+      
+
+plugins:
+  - serverless-python-requirements
+  - serverless-prune-plugin
