@@ -13,7 +13,7 @@ setup aws credentials:
 This Lambda also utilizes env variables for sending emails:  
 ```
 #.env file
-PORTFOLIO = "APPL,VTI,MSFT" # Stocks to keep track of
+PORTFOLIO = "APPL,VTI,MSFT" # (Comma separated) Stocks to keep track of
 SENDER = # Email sender
 RECEIVER = # Email receiver
 CRED = # Sender pw 
@@ -22,23 +22,16 @@ EOD_TOKEN =  # AppToken for EOD API Calls
 
 In `mail_sender.py`, the email service is set to `GMAIL`, and the port is set to `467` by default. Change these if necessary.
 ```
-SERVERS = {
-  "GMAIL": "smtp.gmail.com",
-  "HOTMAIL": "smtp.live.com",
-  "YAHOO": "smtp.mail.yahoo.com"
-}
-# possible ports: 465 (SSL), 587 (TLS)
-PORT = 465
-# PORT = 587
-
-
-def send(sender, to_addr, subject, message, password, service="GMAIL"):
-  header  = f'From: {sender}\n' 
-  header += f'To: {to_addr}\n' 
-  header += f'Subject: {subject}\n\n' 
-  message = header + message
+def setup_service(service="GMAIL", port=465):
+  SERVERS = {
+    "GMAIL": "smtp.gmail.com",
+    "HOTMAIL": "smtp.live.com",
+    "YAHOO": "smtp.mail.yahoo.com"
+  }
+  # possible ports: 465 (SSL), 587 (TLS)
+  PORT = port
+  return PORT, SERVERS["service"]
 ```
-
 
 The lambda is set to run twice a day, at 14:30 and 21:30 UTC. You can configure this in the `serverless.yml` file:
 ```
